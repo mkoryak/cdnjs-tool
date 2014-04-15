@@ -1,0 +1,28 @@
+{
+  "name": "cdnjs-tool",
+  "version": "0.0.1",
+  "description": "cdnjs-tool",
+  "main": "app.coffee",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mkoryak/cdnjs-tool.git"
+  },
+  "author": "Misha Koryak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mkoryak/cdnjs-tool/issues"
+  },
+  "homepage": "https://github.com/mkoryak/cdnjs-tool",
+  "dependencies": {
+    "underscore": "~1.6.0",
+    "async": "~0.7.0",
+    "fs-extra": "~0.8.1",
+    "glob": "~3.2.9",
+    "npm": "~1.4.6",
+    "request": "~2.34.0",
+    "tarball-extract": "0.0.3"
+  }
+}
