@@ -140,7 +140,7 @@ updatePackages( ->
   console.log('updated:', updated.length)
   console.log(_.map(updated, (o) -> o.name))
   console.log('npmNotFound:', npmNotFound.length)
-  console.log(_.map(npmNotFound, (o) -> o.name))
+  console.log(npmNotFound)
   console.log('filesDontMatch:', filesDontMatch.length)
   console.log(_.map(filesDontMatch, (o) -> o.name))
   console.log('upToDate:', upToDate.length)
