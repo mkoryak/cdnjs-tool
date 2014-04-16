@@ -7,15 +7,16 @@ npm = require('npm')
 tarball = require('tarball-extract')
 request = require('request')
 
+config = require("./config.json")
 #TODO:
 # - look at latest version npms also to find our files
 # - fuzzy npm name matching
 # - use github api to create an issue in libs that cant be found on npm
 
-CDNJS_ROOT = '/Users/misha/Projects/github/cdnjs/ajax/libs/' #change me!
-START_FROM_SCRATCH = true #download all npms on every run (and clear temp dir)
-BLACKLIST = ['noisy'] #these cause npm to throw an exception
-
+CDNJS_ROOT = config.root
+START_FROM_SCRATCH = config.cleanStart #download all npms on every run (and clear temp dir)
+BLACKLIST = config.blacklist #these cause npm to throw an exception
+ALLOW_MISSING_MINJS = config.allowMissingMinJS
 
 
 updated = []
@@ -32,10 +33,24 @@ RegExp.escape = (s) ->
   return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 
 
+
+findFileRoot = (arr) ->
+  if arr.length == 1
+    return ""
+
+  arr = arr.slice(0).sort()
+  f1 = arr[0]
+  f2 = arr[arr.length - 1]
+  i = 0
+  ++i  while (f1.charAt(i) is f2.charAt(i) and i < f1.length)
+  return f1.substring(0, i)
+
 writeNpmMap = (obj, cb) ->
   json = fs.readJSONFileSync(obj.package)
   json.npmName = obj.name
 
+ # commonRoot = findFileRoot(obj.files)
+  console.log("common root:", commonRoot)
   json.npmFileMap = [{
     "basePath": "/",
     "files": obj.files
@@ -52,7 +67,13 @@ verifyFilesExist = (obj, cb) ->
   _.each(obj.files, (f) ->
     found = _.find(unpackedFiles, (uf) ->
       fname = path.basename(uf)
-      return fname == path.basename(f)
+      findFile = path.basename(f)
+      if fname == findFile
+        return true
+      else if ALLOW_MISSING_MINJS
+        findFile = findFile.replace(".min.js", ".js")
+        return fname == findFile
+
     )
     if found
       foundFiles.push(path.relative(obj.unpacked, found))

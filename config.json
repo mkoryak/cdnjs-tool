@@ -1,0 +1,6 @@
+{
+  "root": "/Users/misha/Projects/github/cdnjs/ajax/libs/",
+  "cleanStart": false,
+  "blacklist": ["noisy"],
+  "allowMissingMinJS": true
+}
