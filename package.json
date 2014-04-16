@@ -23,6 +23,7 @@
     "glob": "~3.2.9",
     "npm": "~1.4.6",
     "request": "~2.34.0",
-    "tarball-extract": "0.0.3"
+    "tarball-extract": "0.0.3",
+    "winston": "~0.7.3"
   }
 }
